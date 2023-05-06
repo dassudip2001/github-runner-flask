@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "1.0.0" ]
+    branches: [ "main" ]
   pull_request:
-    branches: [ "1.0.0" ]
+    branches: [ "main" ]
 
 jobs:
 
@@ -24,4 +24,14 @@ jobs:
         docker-compose -f docker-compose.yml up -d 
     - name: Remove old image or storage
       run: |
-        docker system prune      
+        docker system prune 
+  show: 
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - name: show all The images
+        run: |
+            docker ps 
+         
+
