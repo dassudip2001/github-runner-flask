@@ -16,7 +16,6 @@ jobs:
     - uses: actions/checkout@v3
     - name: Build the Docker image
       run: |
-          docker build . --file Dockerfile --tag my-image-name:$(date +%s)
           ls 
   docker-compose:
       needs: build
@@ -25,10 +24,10 @@ jobs:
       - uses: actions/checkout@v3
       - name: Docker compose for build and run
         run: |
-              docker-compose -f docker-compose.yml up -d 
+              docker-compose -f docker-compose.yml up --build
       - name: Remove old image or storage
         run: |
-              docker system prune  
+              docker system prune  -y
 
      
   show: 
