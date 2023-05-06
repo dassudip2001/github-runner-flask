@@ -1,6 +1,9 @@
-FROM python:3.11.0b3-alpine3.16
+FROM python:alpine3.10
+
 WORKDIR /app
+
+RUN pip install flask
+
 COPY . .
-RUN pip install -r requirements.txt
-ENTRYPOINT ["python"]
-CMD ["app.py"]
+
+CMD [ "python3","app.py" ]
