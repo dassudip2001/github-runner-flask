@@ -18,13 +18,19 @@ jobs:
       run: |
           docker build . --file Dockerfile --tag my-image-name:$(date +%s)
           ls 
-      
-    - name: Docker compose for build and run
-      run: |
-        docker-compose -f docker-compose.yml up -d 
-    - name: Remove old image or storage
-      run: |
-        docker system prune 
+  docker-compose:
+      needs: build
+      runs-on: ubuntu-latest
+      steps:
+      - uses: actions/checkout@v3
+      - name: Docker compose for build and run
+        run: |
+              docker-compose -f docker-compose.yml up -d 
+      - name: Remove old image or storage
+        run: |
+              docker system prune  
+
+     
   show: 
       needs: build
       runs-on: ubuntu-latest
