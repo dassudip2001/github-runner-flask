@@ -2,9 +2,9 @@ name: Docker Image CI
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "1.0.0" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "1.0.0" ]
 
 jobs:
 
@@ -19,4 +19,9 @@ jobs:
           docker build . --file Dockerfile --tag my-image-name:$(date +%s)
           ls 
       
-      
+    - name: Docker compose for build and run
+      run: |
+        docker-compose -f docker-compose up -d 
+    - name: Remove old image or storage
+      run: |
+        docker system prune      
